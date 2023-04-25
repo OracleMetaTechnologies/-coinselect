@@ -156,3 +156,71 @@ module.exports = [{
     fee: new BN(0)
   }
 },
+{
+  description: '2:2 (+1), w/ change',
+  feeRate: new BN(7),
+  inputs: [
+    new BN(16000)
+  ],
+  output: new BN(6000),
+  expected: {
+    inputs: [{
+      value: new BN(16000)
+    }],
+    outputs: [{
+      value: new BN(6000)
+    },
+    {
+      value: new BN(6000)
+    },
+    {
+      value: new BN(2180)
+    }
+    ],
+    fee: new BN(1820)
+  }
+},
+{
+  description: '2:3 (+1), no fee, w/ change',
+  feeRate: new BN(0),
+  inputs: [
+    new BN(5000),
+    new BN(10000)
+  ],
+  output: new BN(4000),
+  expected: {
+    inputs: [{
+      value: new BN(5000)
+    },
+    {
+      value: new BN(10000)
+    }
+    ],
+    outputs: [{
+      value: new BN(4000)
+    },
+    {
+      value: new BN(4000)
+    },
+    {
+      value: new BN(4000)
+    },
+    {
+      value: new BN(3000)
+    }
+    ],
+    fee: new BN(0)
+  }
+},
+{
+  description: 'not enough funds',
+  feeRate: new BN(10),
+  inputs: [
+    new BN(41000),
+    new BN(1000)
+  ],
+  output: new BN(40000),
+  expected: {
+    fee: new BN(3400)
+  }
+},
