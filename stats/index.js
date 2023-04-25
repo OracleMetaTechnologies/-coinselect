@@ -36,3 +36,11 @@ let pubkeyhashScriptLengthData = {
   },
   outLength: 25
 }
+
+let selectedData = walletType === 'p2pkh' ? pubkeyhashScriptLengthData : scripthashScriptLengthData
+let inLengthProbs = selectedData.inLengthPercs
+
+let outLengthProbs = {};
+[scripthashScriptLengthData, pubkeyhashScriptLengthData].forEach(({prob, outLength}) => {
+  outLengthProbs[outLength] = prob
+})
