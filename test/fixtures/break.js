@@ -86,3 +86,73 @@ module.exports = [{
     fee: new BN(4000)
   }
 },
+{
+  description: '2:5',
+  feeRate: new BN(10),
+  inputs: [
+    new BN(3000),
+    new BN(12000)
+  ],
+  output: new BN(2000),
+  expected: {
+    inputs: [{
+      value: new BN(3000)
+    },
+    {
+      value: new BN(12000)
+    }
+    ],
+    outputs: [{
+      value: new BN(2000)
+    },
+    {
+      value: new BN(2000)
+    },
+    {
+      value: new BN(2000)
+    },
+    {
+      value: new BN(2000)
+    },
+    {
+      value: new BN(2000)
+    }
+    ],
+    fee: new BN(5000)
+  }
+},
+{
+  description: '2:5, no fee',
+  feeRate: new BN(0),
+  inputs: [
+    new BN(5000),
+    new BN(10000)
+  ],
+  output: new BN(3000),
+  expected: {
+    inputs: [{
+      value: new BN(5000)
+    },
+    {
+      value: new BN(10000)
+    }
+    ],
+    outputs: [{
+      value: new BN(3000)
+    },
+    {
+      value: new BN(3000)
+    },
+    {
+      value: new BN(3000)
+    },
+    {
+      value: new BN(3000)
+    },
+    {
+      value: new BN(3000)
+    }
+    ],
+    fee: new BN(0)
+  }
+},
