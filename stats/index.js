@@ -70,3 +70,15 @@ for (var j = 0; j < 100; ++j) {
         // if discardFailed == true, this should do nothing
         simulation.run(discardFailed)
       })
+
+      // now, run stage.txos.length transactions
+      stage.txos.forEach((txo) => {
+        simulation.plan([txo])
+        simulation.run(discardFailed)
+      })
+    })
+
+    simulation.finish()
+    results.push(simulation)
+  }
+}
