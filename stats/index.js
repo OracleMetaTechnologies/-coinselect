@@ -44,3 +44,15 @@ let outLengthProbs = {};
 [scripthashScriptLengthData, pubkeyhashScriptLengthData].forEach(({prob, outLength}) => {
   outLengthProbs[outLength] = prob
 })
+
+// n samples
+for (var j = 0; j < 100; ++j) {
+  if (j % 200 === 0) console.log('Iteration', j)
+
+  let stages = []
+
+  for (var i = 1; i < 4; ++i) {
+    let utxos = Simulation.generateTxos(20 / i, min, max, inLengthProbs)
+    let txos = Simulation.generateTxos(80 / i, min, max / 3, outLengthProbs)
+    stages.push({ utxos, txos })
+  }
