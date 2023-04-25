@@ -23,3 +23,16 @@ let scripthashScriptLengthData = {
   },
   outLength: 23
 }
+
+// these are compressed key length (90% of p2pkh inputs)
+// percs changed so they add to 100
+let pubkeyhashScriptLengthData = {
+  prob: 0.84,
+  inLengthPercs: {
+    105: 0.4,
+    106: 50.7,
+    107: 48.81,
+    108: 0.09
+  },
+  outLength: 25
+}
