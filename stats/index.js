@@ -108,3 +108,34 @@ function merge (results) {
       resultMap[stats.name] = Object.assign({}, stats)
     }
   })
+
+    return Object.keys(resultMap).map(k => ({ stats: resultMap[k] }))
+}
+
+function pad (i) {
+  if (typeof i === 'number') i = Math.round(i * 1000) / 1000
+  return ('          ' + i).slice(-10)
+}
+
+merge(results).sort((a, b) => {
+  if (a.stats.transactions !== b.stats.transactions) return b.stats.transactions - a.stats.transactions
+  return a.stats.totalCost - b.stats.totalCost
+
+// top 20 only
+}).slice(0, 20).forEach((x, i) => {
+  let { stats } = x
+  let DNF = 1 - stats.transactions / stats.plannedTransactions
+
+  console.log(
+    pad(i),
+    pad(stats.name),
+    '| transactions', pad('' + stats.transactions),
+    '| fee', pad('' + stats.average.fee),
+    '| feeRate', pad('' + stats.average.feeRate),
+    '| nInputs', pad(stats.average.nInputs),
+    '| nOutputs', pad(stats.average.nOutputs),
+    '| DNF', (100 * DNF).toFixed(2) + '%',
+    '| totalCost', pad('' + Math.round(stats.totalCost / 1000)),
+    '| utxos', pad('' + stats.utxos)
+  )
+})
