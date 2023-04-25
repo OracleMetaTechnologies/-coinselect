@@ -398,3 +398,192 @@ feeRate: new BN(10),
   }
 },
 {
+  description: 'no outputs, no change',
+  feeRate: new BN(10),
+  inputs: [
+    new BN(1900)
+  ],
+  outputs: [],
+  expected: {
+    inputs: [{
+      i: 0,
+      value: new BN(1900)
+    }],
+    outputs: [],
+    fee: new BN(1900)
+  }
+},
+{
+  description: 'no outputs, change expected',
+  feeRate: new BN(10),
+  inputs: [
+    new BN(20000)
+  ],
+  outputs: [],
+  expected: {
+    inputs: [{
+      i: 0,
+      value: new BN(20000)
+    }],
+    outputs: [{
+      value: new BN(18080)
+    }],
+    fee: new BN(1920)
+  }
+},
+{
+  description: 'not enough funds, empty result',
+  feeRate: new BN(10),
+  inputs: [
+    new BN(20000)
+  ],
+  outputs: [
+    new BN(40000)
+  ],
+  expected: {
+    fee: new BN(1920)
+  }
+},
+{
+  description: 'not enough funds (w/ fee), empty result',
+  feeRate: new BN(10),
+  inputs: [
+    new BN(40000)
+  ],
+  outputs: [
+    new BN(40000)
+  ],
+  expected: {
+    fee: new BN(1920)
+  }
+},
+{
+  description: 'not enough funds (no inputs), empty result',
+  feeRate: new BN(10),
+  inputs: [],
+  outputs: [],
+  expected: {
+    fee: new BN(100)
+  }
+},
+{
+  description: 'not enough funds (no inputs), empty result (>1KiB)',
+  feeRate: new BN(10),
+  inputs: [],
+  outputs: [
+    new BN(1),
+    new BN(1),
+    new BN(1),
+    new BN(1),
+    new BN(1),
+    new BN(1),
+    new BN(1),
+    new BN(1),
+    new BN(1),
+    new BN(1),
+    new BN(1),
+    new BN(1),
+    new BN(1),
+    new BN(1),
+    new BN(1),
+    new BN(1),
+    new BN(1),
+    new BN(1),
+    new BN(1),
+    new BN(1),
+    new BN(1),
+    new BN(1),
+    new BN(1),
+    new BN(1),
+    new BN(1),
+    new BN(1),
+    new BN(1),
+    new BN(1),
+    new BN(1)
+  ],
+  expected: {
+    fee: new BN(9960)
+  }
+},
+{
+  description: '2 outputs, some with missing value (NaN)',
+  feeRate: new BN(10),
+  inputs: [
+    new BN(20000)
+  ],
+  outputs: [
+    new BN(1000),
+    {}
+  ],
+  expected: {
+    fee: new BN(2260)
+  }
+},
+{
+  description: 'input with float values (NaN)',
+  feeRate: new BN(10),
+  inputs: [
+    20000.5
+  ],
+  outputs: [
+    new BN(10000),
+    new BN(1200)
+  ],
+  expected: {
+    fee: new BN(2260)
+  }
+},
+{
+  description: '2 outputs, with float values (NaN)',
+  feeRate: new BN(10),
+  inputs: [
+    new BN(20000)
+  ],
+  outputs: [
+    10000.25,
+    1200.5
+  ],
+  expected: {
+    fee: new BN(2260)
+  }
+},
+{
+  description: '2 outputs, string values (NaN)',
+  feeRate: new BN(10),
+  inputs: [
+    new BN(20000)
+  ],
+  outputs: [{
+    value: '100'
+  },
+  {
+    value: '204'
+  }
+  ],
+  expected: {
+    fee: new BN(2260)
+  }
+},
+{
+  description: 'inputs and outputs, bad feeRate (NaN)',
+  feeRate: '1',
+  inputs: [
+    new BN(20000)
+  ],
+  outputs: [
+    new BN(10000)
+  ],
+  expected: {}
+},
+{
+  description: 'inputs and outputs, bad feeRate (NaN)',
+  feeRate: 1.5,
+  inputs: [
+    new BN(20000)
+  ],
+  outputs: [
+    new BN(10000)
+  ],
+  expected: {}
+}
+]
