@@ -298,3 +298,103 @@ outputs: [
 },
 {
   description: 'many outputs, change expected',
+feeRate: new BN(10),
+  inputs: [
+    new BN(30000),
+    new BN(14220),
+    new BN(10001)
+  ],
+  outputs: [
+    new BN(35000),
+    new BN(5000),
+    new BN(5000),
+    new BN(1000)
+  ],
+  expected: {
+    inputs: [{
+      i: 0,
+      value: new BN(30000)
+    },
+    {
+      i: 1,
+      value: new BN(14220)
+    },
+    {
+      i: 2,
+      value: new BN(10001)
+    }
+    ],
+    outputs: [{
+      value: new BN(35000)
+    },
+    {
+      value: new BN(5000)
+    },
+    {
+      value: new BN(5000)
+    },
+    {
+      value: new BN(1000)
+    },
+    {
+      value: new BN(1981)
+    }
+    ],
+    fee: new BN(6240)
+  }
+},
+{
+  description: 'many outputs, no fee, change expected',
+  feeRate: new BN(0),
+  inputs: [
+    new BN(5000),
+    new BN(5000),
+    new BN(5000),
+    new BN(5000),
+    new BN(5000),
+    new BN(5000)
+  ],
+  outputs: [
+    new BN(28000),
+    new BN(1000)
+  ],
+  expected: {
+    inputs: [{
+      i: 0,
+      value: new BN(5000)
+    },
+    {
+      i: 1,
+      value: new BN(5000)
+    },
+    {
+      i: 2,
+      value: new BN(5000)
+    },
+    {
+      i: 3,
+      value: new BN(5000)
+    },
+    {
+      i: 4,
+      value: new BN(5000)
+    },
+    {
+      i: 5,
+      value: new BN(5000)
+    }
+    ],
+    outputs: [{
+      value: new BN(28000)
+    },
+    {
+      value: new BN(1000)
+    },
+    {
+      value: new BN(1000)
+    }
+    ],
+    fee: new BN(0)
+  }
+},
+{
