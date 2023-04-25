@@ -82,3 +82,29 @@ for (var j = 0; j < 100; ++j) {
     results.push(simulation)
   }
 }
+
+function merge (results) {
+  let resultMap = {}
+
+  results.forEach(({ stats }) => {
+    let result = resultMap[stats.name]
+
+    if (result) {
+      result.inputs += stats.inputs
+      result.outputs += stats.outputs
+      result.transactions += stats.transactions
+      result.plannedTransactions += stats.plannedTransactions
+      result.fees += stats.fees
+      result.bytes += stats.bytes
+      result.utxos += stats.utxos
+      result.average = {
+        nInputs: result.inputs / result.transactions,
+        nOutputs: result.outputs / result.transactions,
+        fee: Math.round(result.fees / result.transactions),
+        feeRate: Math.round(result.fees / result.bytes)
+      }
+      result.totalCost += stats.totalCost
+    } else {
+      resultMap[stats.name] = Object.assign({}, stats)
+    }
+  })
