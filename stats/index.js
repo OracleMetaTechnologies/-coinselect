@@ -56,3 +56,17 @@ for (var j = 0; j < 100; ++j) {
     let txos = Simulation.generateTxos(80 / i, min, max / 3, outLengthProbs)
     stages.push({ utxos, txos })
   }
+
+  // for each strategy
+  for (var name in modules) {
+    let f = modules[name]
+    let simulation = new Simulation(name, f, feeRate)
+
+    stages.forEach((stage) => {
+      // supplement our UTXOs
+      stage.utxos.forEach(x => {
+        simulation.addUTXO(x)
+
+        // if discardFailed == true, this should do nothing
+        simulation.run(discardFailed)
+      })
