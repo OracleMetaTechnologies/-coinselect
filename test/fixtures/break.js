@@ -224,3 +224,51 @@ module.exports = [{
     fee: new BN(3400)
   }
 },
+{
+  description: 'no inputs',
+  feeRate: new BN(10),
+  inputs: [],
+  output: new BN(2000),
+  expected: {
+    fee: new BN(440)
+  }
+},
+{
+  description: 'invalid output (NaN)',
+  feeRate: new BN(10),
+  inputs: [],
+  output: {},
+  expected: {
+    fee: new BN(100)
+  }
+},
+{
+  description: 'input with float values (NaN)',
+  feeRate: new BN(10),
+  inputs: [
+    10000.5
+  ],
+  output: new BN(5000),
+  expected: {
+    fee: new BN(1580)
+  }
+},
+{
+  description: 'inputs and outputs, bad feeRate (NaN)',
+  feeRate: '1',
+  inputs: [
+    new BN(20000)
+  ],
+  output: new BN(10000),
+  expected: {}
+},
+{
+  description: 'inputs and outputs, bad feeRate (NaN)',
+  feeRate: 1.5,
+  inputs: [
+    new BN(20000)
+  ],
+  output: new BN(10000),
+  expected: {}
+}
+]
