@@ -48,3 +48,22 @@ function maximal (utxos, outputs, feeRate) {
 
 function minimal (utxos, outputs, feeRate) {
   utxos = utxos.concat().sort((a, b) => b.value - a.value)
+
+    return accumulative(utxos, outputs, feeRate)
+}
+
+function FIFO (utxos, outputs, feeRate) {
+  utxos = utxos.concat().reverse()
+
+  return accumulative(utxos, outputs, feeRate)
+}
+
+function proximal (utxos, outputs, feeRate) {
+  const outAccum = outputs.reduce((a, x) => a + x.value, 0)
+
+  utxos = utxos.concat().sort((a, b) => {
+    let aa = a.value - outAccum
+    let bb = b.value - outAccum
+
+    return aa - bb
+  })
