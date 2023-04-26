@@ -67,3 +67,32 @@ function proximal (utxos, outputs, feeRate) {
 
     return aa - bb
   })
+
+    return accumulative(utxos, outputs, feeRate)
+}
+
+// similar to bitcoind
+function random (utxos, outputs, feeRate) {
+  utxos = shuffle(utxos)
+
+  return accumulative(utxos, outputs, feeRate)
+}
+
+function bestof (utxos, outputs, feeRate) {
+  let n = 100
+  let utxosCopy = utxos.concat()
+  let best = { fee: Infinity }
+
+  while (n) {
+    shuffleInplace(utxosCopy)
+
+    let result = accumulative(utxos, outputs, feeRate)
+    if (result.inputs && result.fee < best.fee) {
+      best = result
+    }
+
+    --n
+  }
+
+  return best
+}
